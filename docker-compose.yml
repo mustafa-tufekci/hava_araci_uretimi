@@ -1,0 +1,58 @@
+services:
+  postgresdb:
+    image: postgres:15
+    container_name: postgresdb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    ports:
+      - "5433:5432"
+    networks:
+      - internal
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres", "-d", "hava_araci_uretimi_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  hava_araci_uretimi:
+    build: .
+    entrypoint: /workspace/server-entrypoint.sh
+    container_name: hava_araci_uretimi
+    restart: always
+    volumes:
+      - .:/workspace
+      - ./static:/static
+    ports:
+      - "8001:8000"
+    env_file:
+      - .env
+    depends_on:
+      - postgresdb
+    networks:
+      - internal
+
+
+  frontend:
+    image: nginx:alpine
+    container_name: frontend
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro
+      - ./frontend/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:
+      - "8080:80"
+    networks:
+      - internal
+    depends_on:
+      - hava_araci_uretimi
+
+volumes:
+  postgres_data:
+
+networks:
+  internal:
+    driver: bridge
