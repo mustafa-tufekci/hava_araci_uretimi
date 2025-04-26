@@ -169,9 +169,8 @@ Temel endpoint'ler:
 ## 📊 Veritabanı Şeması
 
 Temel tablolar:
-- Users
-- Teams
-- AircraftModels
-- Parts
-- Aircrafts
-- AssemblyProcesses
+- Personel
+- Takim
+- UcakModeli
+- Parca
+- Ucaklar
