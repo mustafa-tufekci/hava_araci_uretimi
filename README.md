@@ -92,7 +92,7 @@ docker-compose exec hava_araci_uretimi python manage.py createsuperuser
 
 6. Tarayıcıda açın ve oluşturduğunuz kullanıcı bilgileri ile giriş yapın
 ```
-http://localhost:8080
+http://localhost:9001
 ```
 
 ## 📸 Ekran Görüntüleri

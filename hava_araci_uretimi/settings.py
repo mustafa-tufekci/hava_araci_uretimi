@@ -177,7 +177,7 @@ SWAGGER_SETTINGS = {
             'in': 'header',
         }
     },
-    'DEFAULT_API_URL': 'http://localhost:8000/',
+    'DEFAULT_API_URL': 'http://localhost:8001/',
     'ORDERING': 'None',
     'APIS_SORTER': 'alpha',
 }
